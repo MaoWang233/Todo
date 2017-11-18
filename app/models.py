@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import UserMixin
 from . import db, login_manager

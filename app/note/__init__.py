@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Blueprint
 
 note = Blueprint('note', __name__)

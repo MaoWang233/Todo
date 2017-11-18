@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
