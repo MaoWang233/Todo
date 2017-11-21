@@ -32,7 +32,7 @@ class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    title = db.Column(db.String)
+    title = db.Column(db.String(64))
     done = db.Column(db.Boolean)
 
     def from_json(self, source):
