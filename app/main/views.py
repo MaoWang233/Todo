@@ -39,7 +39,8 @@ def register():
         return redirect(url_for('main.login'))
     return render_template('register.html', form=form)
 
-@main.route('/todo', methods=['POST'])
+
+@main.route('/todos/', methods=['POST'])
 def create():
     todo = Todo()
     todo.from_json(request.get_json())
@@ -48,28 +49,8 @@ def create():
     db.session.commit()
     return _todo_response(todo)
 
-'''
-@main.route('/todo/<int:id>')
-def read(id):
-    todo = Todo.query.filter_by(id = id).first()
-    return _todo_response(todo)
-'''
 
-@main.route('/todo/<int:id>', methods=['PUT'])
-def update(id):
-    todo = Todo.query.filter_by(id = id).first()
-    todo.from_json(request.get_json())
-    db.session.add(todo)
-    return _todo_response(todo)
-
-
-@main.route('/todo/<int:id>', methods=['DELETE'])
-def delete(id):
-    todo = Todo.query.filter_by(id = id).first()
-    db.session.delete(todo)
-    return jsonify()
-
-@main.route('/todos/')
+@main.route('/todos/',  methods=['GET'])
 def readall():
     todos = []
     itertodos = Todo.query.filter_by(user_id = current_user.id).all()
@@ -77,5 +58,21 @@ def readall():
         todos.append(todo.to_json())
     return json.dumps(todos)
 
+
 def _todo_response(todo):
     return jsonify(todo.to_json())
+
+
+@main.route('/todos/<int:index>', methods=['PUT'])
+def update(index):
+    todo = Todo.query.filter_by(id = index).first()
+    todo.from_json(request.get_json())
+    db.session.add(todo)
+    return _todo_response(todo)
+
+
+@main.route('/todos/<int:index>', methods=['DELETE'])
+def delete(index):
+    todo = Todo.query.filter_by(id = index).first()
+    db.session.delete(todo)
+    return jsonify()
